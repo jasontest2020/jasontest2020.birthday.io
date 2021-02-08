@@ -1,0 +1,873 @@
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Nobile:400italic,700italic);
+@import url(https://fonts.googleapis.com/css?family=Dancing+Script);
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+body {
+  background: white;
+  padding-top:60px;
+  <!-- background-image: url("https://cdn.pixabay.com/photo/2017/08/27/10/16/interior-2685517_1280.jpg"); -->
+  padding: 50px;
+  background-repeat:round;
+
+}
+
+#card-front {
+  color: #FFDFDF;
+}
+
+#card, #card-front, #card-inside {
+  height: 640px;
+}
+
+.wrap {
+    padding: 1.5em 2.5em;
+    height: 100%;
+}
+#card-front, #card-inside {
+  width: 50%;
+  -webkit-box-shadow: 2px 2px 30px rgba(0, 0, 0, .25), 0 0 1px rgba(0, 0, 0, .5);
+  -moz-box-shadow: 2px 2px 30px rgba(0, 0, 0, .25), 0 0 1px rgba(0, 0, 0, .5);
+  box-shadow: 2px 2px 30px rgba(0, 0, 0, .25), 0 0 1px rgba(0, 0, 0, .5);
+  position: absolute;
+  left: 50%;
+}
+
+
+#card-inside .wrap {
+background: #ffffff;
+    border: 2px solid #860000;
+    -webkit-box-shadow: inset 10px 0 0px rgb(150 0 0);
+    -moz-box-shadow: inset 10px 0 0px rgb(150 0 0);
+    box-shadow: inset 10px 0 0px rgb(150 0 0);
+}
+#card {
+    max-width: 960px;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
+    perspective: 5000px;
+    -moz-perspective: 5000px;
+    -webkit-perspective: 5000px;
+    position: relative;
+}
+
+#card h1 {
+    text-align: center;
+    <!-- font-family: 'Nobile', sans-serif; -->
+    font-family: 'Dancing Script', sans-serif ;
+    font-style: italic;
+    font-size: 70px;
+    text-shadow: 
+        4px 4px 0px rgba(0, 0, 0, .15),
+        1px 1px 0 rgba(255, 200, 200, 255),
+        2px 2px 0 rgba(255, 150, 150, 255),
+        3px 3px 0 rgba(255, 125, 125, 255);
+    color: white;
+}
+#card-inside {
+    font-size: 1.1em;
+    line-height: 1.4;
+    <!-- font-family: 'Nobile'; -->
+    font-family: 'Dancing Script', sans-serif;
+    color: #331717;
+    font-style: italic;
+}
+
+p {
+    margin-top: 1em;
+}
+
+p:first-child {
+    margin-top: 0;
+}
+
+p.signed {
+    margin-top: 1.5em;
+    text-align: center;
+    font-family: 'Dancing Script', sans-serif;
+    font-size: 1.5em;
+}
+
+#card-front {
+    background-color: #800020;
+   <!-- background-image: linear-gradient(to right bottom, #d8007a, #e6006b, #f20059, #fa0046, #fe0030, #f60023, #ed0015, #e40001, #d00001, #bc0002, #a90001, #960000); -->
+            transform-origin: left;
+       -moz-transform-origin: left;
+    -webkit-transform-origin: left;
+            transition:         transform 1s linear;
+       -moz-transition:    -moz-transform 1s linear;
+    -webkit-transition: -webkit-transform 1s linear;
+    position: relative;
+}
+
+#card-front .wrap {
+            transition: background 1s linear;
+       -moz-transition: background 1s linear;
+    -webkit-transition: background 1s linear;
+}
+
+#card-front button {
+  position: absolute;
+  bottom: 1em;
+  right: -12px;
+  background: #F44;
+  color: #FFF;
+  font-family: 'Nobile', sans-serif;
+  font-style: italic;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: .5em;
+  border: none;
+  cursor: pointer;
+          box-shadow: 2px 2px 3px rgba(0, 0, 0, .25), 0 0 1px rgba(0, 0, 0, .4);
+     -moz-box-shadow: 2px 2px 3px rgba(0, 0, 0, .25), 0 0 1px rgba(0, 0, 0, .4);
+  -webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, .25), 0 0 1px rgba(0, 0, 0, .4);
+}
+
+#card-front button:hover,
+#card-front button:focus {
+  background: #F22;
+}
+
+#close {
+  display: none;
+}
+
+#card.open-fully #close,
+#card-open-half #close {
+  display: inline;
+}
+
+#card.open-fully #open {
+  display: none;
+}
+
+
+#card.open-half #card-front,
+#card.close-half #card-front {
+            transform: rotateY(-90deg);
+       -moz-transform: rotateY(-90deg);
+    -webkit-transform: rotateY(-90deg);
+}
+#card.open-half #card-front .wrap {
+    background-color: rgba(0, 0, 0, .5);
+}
+
+#card.open-fully #card-front,
+#card.close-half #card-front {
+  background: white;
+}
+
+#card.open-fully #card-front {
+    transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -webkit-transform: rotateY(-180deg);
+}
+
+#card.open-fully #card-front #backOfFrontCard {
+    transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+}
+
+#card.open-fully #card-front .wrap {
+    <!-- background-color: rgba(0, 0, 0, 0); -->
+	background: #ffffff;
+    border: 2px solid #860000;
+    -webkit-box-shadow: inset 10px 0 0px rgb(150 0 0);
+    -moz-box-shadow: inset 10px 0 0px rgb(150 0 0);
+    box-shadow: inset 10px 0 0px rgb(150 0 0);
+}
+
+#card.open-fully #card-front .wrap #frontOfFrontCard,
+#card.close-half #card-front .wrap #frontOfFrontCard {
+   display: none;
+}
+
+footer {
+  max-width: 500px;
+  margin: 40px auto;
+  font-family: 'Nobile', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #888;
+  text-align: center;
+}
+
+#backOfFrontCard {
+color: #960000 !important;
+    font-family: 'Dancing Script' !important;
+    text-shadow: 4px 4px 0px rgb(255 255 255 / 19%), 1px 1px 0 #bac, 2px 2px 0 rgb(255 255 255), 3px 3px 0 rgb(255 0 0);
+    font-style: italic;
+    font-size: 3em;
+    text-align: center;
+	}
+	
+	#backOfFrontCard1 {
+color: darkred !important;
+    font-family: 'Dancing Script'  !important;
+    text-shadow: 4px 4px 0px rgb(0 0 0 / 0%), 1px 1px 0 rgb(255 200 200), 2px 2px 0 rgb(0 255 231), 3px 3px 0 rgb(0 0 0)  !important;
+font-style: italic;
+    font-size: 3em;
+	text-align: center;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	.cake {
+    background-color: #ffcc8a;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: 200px;
+    height: 40px;
+    background: lighten(#6B5344, 3%);
+    border-radius: 100%;
+    box-shadow: 0px 4px 0px #ff0000, 0px 8px 0px #ff8100, 0px 12px 0px #ff8100, 0px 16px 0px #ff8100, 0px 20px 0px #ff8100, 0px 24px 0px #ffffff, 0px 28px 0px #ff00d4, 0px 32px 0px #ff00d4, 0px 36px 0px #ff00d4, 0px 40px 0px #ff00d4, 0px 44px 0px #ffffff, 0px 48px 0px #3f0, 0px 52px 0px #3f0, 0px 56px 0px #33ff00, 0px 60px 0px #ffffff, 0px 64px 0px #00dcff, 0px 68px 0px #00dcff, 0px 72px 0px #00dcff, 0px 76px 0px #00dcff, 0px 80px 0px #6b5344;
+    &: before {;
+    position: absolute;
+    right: 0;
+    top: 79px;
+    left: -25px;
+    margin: auto;
+    content: "";
+    width: 250px;
+    height: 50px;
+    border-radius: 100%;
+    background: #fff;
+    box-shadow: 0px 6px 0px rgba(0, 0, 0,.1);
+    z-index: -1;
+    }: ;
+}
+
+.candle {
+  background: #ffffff;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 40%;
+  position: absolute;
+  bottom: 70%;
+  left: 50%;
+  margin-left: -2.5px;
+  margin-top: -8.333333333333334px;
+  width: 10px;
+  height: 50px;
+  
+
+  &:after,
+  &:before {
+    background: rgba(255, 0, 0, 0.4);
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 5px;
+  }
+  &:after {
+    top: 25%;
+    left: 0;
+  }
+  &:before {
+    top: 45%;
+    left: 0;
+  }
+}
+
+.fire {
+  border-radius: 100%;
+  box-shadow: 0 0 40px 10px rgba(248, 233, 209, 0.2);
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  margin-left: -3.3333333333333335px;
+  width: 6.666666666666667px;
+  height: 20.5px;
+  animation: fire 2s infinite;
+}
+
+
+
+@keyframes fire {
+  0% {
+    background: rgb(251,243,63);
+    background: radial-gradient(circle, rgba(251,243,63,1) 0%, rgba(252,177,70,1) 100%);
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(0);
+		background: rgb(251,243,63);
+    background: radial-gradient(circle, rgba(251,243,63,1) 0%, rgba(252,177,70,1) 100%);
+  }
+  100% {
+    background: rgb(251,243,63);
+    background: radial-gradient(circle, rgba(251,243,63,1) 0%, rgba(252,177,70,1) 100%);
+    transform: translateY(0) scale(1);
+	}
+}
+
+
+.first_button {
+  animation: shake 0.90s cubic-bezier(.36, .07, .19, .95) both 6;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+#confetti{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+</style>
+<link href="styles.css" rel="stylesheet">
+<div id="card">
+<canvas id="confetti" hidden></canvas>
+    <div id="card-inside">
+      <div class="wrap"	>
+	          <p class="signed">Dear KINITA</p>
+        <p>Happy Birthday! &#10084;&#65039;</p>
+        <p>Hoping your day is eveything that you want it to be and more. Wishing you all the happiness, peace, joy and blessings that your heart can hold.</p>
+        <p>Hope your day is filled with happiness, smiles and surprises.</p>
+        <p>Take Care and enjoy your special day!</p>
+        <p></p>
+        <p></p>
+        <p><br><br><br><br><br><br></p>
+        <p class="signed">From: ANGELO</p>
+        
+      </div>
+    </div>
+
+    <div id="card-front">
+      <div class="wrap">
+	  <div id="frontOfFrontCard"><h1>Happy Birthday!</h1>
+	  <br>
+	  <img src="https://cdn.pixabay.com/photo/2020/09/01/18/13/background-5535928_1280.png" style="width: 540px;
+    margin-left: -60px;
+    height: 320px;" align="center"/>
+	  </div>
+	  <div id="backOfFrontCard" style="display:none;"><h2>HAPPY BIRTHDAY KINITA!!
+</h2>
+	  
+	  	<div class="box" style="padding-top:350px">
+		<div class="cake">
+			<div class="candle">
+				<div class="fire"></div>
+			</div>
+		</div>
+	</div>
+	
+<audio id="ari" controls autoplay hidden>
+  <source src="https://docs.google.com/uc?export=download&id=1VhiEW6Qp-VB6K0UYXN3BG4EkPY0rl7bL" type="audio/ogg">
+  <source src="https://docs.google.com/uc?export=download&id=1VhiEW6Qp-VB6K0UYXN3BG4EkPY0rl7bL" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+	  </div>
+        
+      </div>
+      <button id="open" class="first_button"><span><img src="https://cdn.pixabay.com/photo/2020/11/28/03/20/deadpool-5783526_960_720.png" style="height: 50px;
+    width: 50px;"/></span></button>
+      <button id="close"><span><img src="https://cdn.pixabay.com/photo/2020/11/28/03/20/deadpool-5783526_960_720.png" style="height: 50px;
+    width: 50px;"/></span></button>
+    </div>
+  </div>
+  
+  <script>
+  (function() {  
+  
+  var win = window,
+    doc = document,
+    docElem = doc.documentElement,
+    body = doc.getElementsByTagName('body')[0],
+    x = win.innerWidth || docElem.clientWidth || body.clientWidth,
+    y = win.innerHeight|| docElem.clientHeight|| body.clientHeight;
+	
+	if(x < '1048' || y < '782'){
+	document.body.setAttribute('style','display:none')
+	alert("Please View On Your PC Kinita");
+	}
+	else{
+		document.body.setAttribute('style','display:block')
+
+	}
+
+  
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+  var card = $('card'),
+      openB = $('open'),
+      closeB = $('close'),
+      timer = null;
+  openB.addEventListener('click', function () {
+    card.setAttribute('class', 'open-half');
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      card.setAttribute('class', 'open-fully');
+	  	document.getElementById("backOfFrontCard").setAttribute('style','display:block');
+var audio = document.getElementById("ari");
+		audio.volume = 0.2;
+        audio.play();
+		audio.volume = 0.2;
+      timer = null;
+    }, 1000);
+	setTimeout(function () {
+    		  	document.getElementById("confetti").removeAttribute('hidden');
+    }, 2000);
+
+  });
+  
+  closeB.addEventListener('click', function () {
+    card.setAttribute('class', 'close-half');
+			  	
+			  	document.getElementById("confetti").setAttribute('hidden','hidden');
+
+    if (timer) clearTimerout(timer);
+    timer = setTimeout(function () {
+
+      card.setAttribute('class', '');
+
+      timer = null;
+	  document.getElementById("backOfFrontCard").setAttribute('style','display:none');
+    }, 1000);
+
+  });
+
+}());
+
+
+
+
+
+
+var retina = window.devicePixelRatio,
+
+    // Math shorthands
+    PI = Math.PI,
+    sqrt = Math.sqrt,
+    round = Math.round,
+    random = Math.random,
+    cos = Math.cos,
+    sin = Math.sin,
+
+    // Local WindowAnimationTiming interface
+    rAF = window.requestAnimationFrame,
+    cAF = window.cancelAnimationFrame || window.cancelRequestAnimationFrame,
+    _now = Date.now || function () {return new Date().getTime();};
+
+// Local WindowAnimationTiming interface polyfill
+(function (w) {
+  /**
+				* Fallback implementation.
+				*/
+  var prev = _now();
+  function fallback(fn) {
+    var curr = _now();
+    var ms = Math.max(0, 16 - (curr - prev));
+    var req = setTimeout(fn, ms);
+    prev = curr;
+    return req;
+  }
+
+  /**
+				* Cancel.
+				*/
+  var cancel = w.cancelAnimationFrame
+  || w.webkitCancelAnimationFrame
+  || w.clearTimeout;
+
+  rAF = w.requestAnimationFrame
+  || w.webkitRequestAnimationFrame
+  || fallback;
+
+  cAF = function(id){
+    cancel.call(w, id);
+  };
+}(window));
+
+document.addEventListener("DOMContentLoaded", function() {
+  var speed = 50,
+      duration = (1.0 / speed),
+      confettiRibbonCount = 11,
+      ribbonPaperCount = 30,
+      ribbonPaperDist = 8.0,
+      ribbonPaperThick = 8.0,
+      confettiPaperCount = 95,
+      DEG_TO_RAD = PI / 180,
+      RAD_TO_DEG = 180 / PI,
+      colors = [
+        ["#df0049", "#660671"],
+        ["#00e857", "#005291"],
+        ["#2bebbc", "#05798a"],
+        ["#ffd200", "#b06c00"]
+      ];
+
+  function Vector2(_x, _y) {
+    this.x = _x, this.y = _y;
+    this.Length = function() {
+      return sqrt(this.SqrLength());
+    }
+    this.SqrLength = function() {
+      return this.x * this.x + this.y * this.y;
+    }
+    this.Add = function(_vec) {
+      this.x += _vec.x;
+      this.y += _vec.y;
+    }
+    this.Sub = function(_vec) {
+      this.x -= _vec.x;
+      this.y -= _vec.y;
+    }
+    this.Div = function(_f) {
+      this.x /= _f;
+      this.y /= _f;
+    }
+    this.Mul = function(_f) {
+      this.x *= _f;
+      this.y *= _f;
+    }
+    this.Normalize = function() {
+      var sqrLen = this.SqrLength();
+      if (sqrLen != 0) {
+        var factor = 1.0 / sqrt(sqrLen);
+        this.x *= factor;
+        this.y *= factor;
+      }
+    }
+    this.Normalized = function() {
+      var sqrLen = this.SqrLength();
+      if (sqrLen != 0) {
+        var factor = 1.0 / sqrt(sqrLen);
+        return new Vector2(this.x * factor, this.y * factor);
+      }
+      return new Vector2(0, 0);
+    }
+  }
+  Vector2.Lerp = function(_vec0, _vec1, _t) {
+    return new Vector2((_vec1.x - _vec0.x) * _t + _vec0.x, (_vec1.y - _vec0.y) * _t + _vec0.y);
+  }
+  Vector2.Distance = function(_vec0, _vec1) {
+    return sqrt(Vector2.SqrDistance(_vec0, _vec1));
+  }
+  Vector2.SqrDistance = function(_vec0, _vec1) {
+    var x = _vec0.x - _vec1.x;
+    var y = _vec0.y - _vec1.y;
+    return (x * x + y * y + z * z);
+  }
+  Vector2.Scale = function(_vec0, _vec1) {
+    return new Vector2(_vec0.x * _vec1.x, _vec0.y * _vec1.y);
+  }
+  Vector2.Min = function(_vec0, _vec1) {
+    return new Vector2(Math.min(_vec0.x, _vec1.x), Math.min(_vec0.y, _vec1.y));
+  }
+  Vector2.Max = function(_vec0, _vec1) {
+    return new Vector2(Math.max(_vec0.x, _vec1.x), Math.max(_vec0.y, _vec1.y));
+  }
+  Vector2.ClampMagnitude = function(_vec0, _len) {
+    var vecNorm = _vec0.Normalized;
+    return new Vector2(vecNorm.x * _len, vecNorm.y * _len);
+  }
+  Vector2.Sub = function(_vec0, _vec1) {
+    return new Vector2(_vec0.x - _vec1.x, _vec0.y - _vec1.y, _vec0.z - _vec1.z);
+  }
+
+  function EulerMass(_x, _y, _mass, _drag) {
+    this.position = new Vector2(_x, _y);
+    this.mass = _mass;
+    this.drag = _drag;
+    this.force = new Vector2(0, 0);
+    this.velocity = new Vector2(0, 0);
+    this.AddForce = function(_f) {
+      this.force.Add(_f);
+    }
+    this.Integrate = function(_dt) {
+      var acc = this.CurrentForce(this.position);
+      acc.Div(this.mass);
+      var posDelta = new Vector2(this.velocity.x, this.velocity.y);
+      posDelta.Mul(_dt);
+      this.position.Add(posDelta);
+      acc.Mul(_dt);
+      this.velocity.Add(acc);
+      this.force = new Vector2(0, 0);
+    }
+    this.CurrentForce = function(_pos, _vel) {
+      var totalForce = new Vector2(this.force.x, this.force.y);
+      var speed = this.velocity.Length();
+      var dragVel = new Vector2(this.velocity.x, this.velocity.y);
+      dragVel.Mul(this.drag * this.mass * speed);
+      totalForce.Sub(dragVel);
+      return totalForce;
+    }
+  }
+
+  function ConfettiPaper(_x, _y) {
+    this.pos = new Vector2(_x, _y);
+    this.rotationSpeed = (random() * 600 + 800);
+    this.angle = DEG_TO_RAD * random() * 360;
+    this.rotation = DEG_TO_RAD * random() * 360;
+    this.cosA = 1.0;
+    this.size = 5.0;
+    this.oscillationSpeed = (random() * 1.5 + 0.5);
+    this.xSpeed = 40.0;
+    this.ySpeed = (random() * 60 + 50.0);
+    this.corners = new Array();
+    this.time = random();
+    var ci = round(random() * (colors.length - 1));
+    this.frontColor = colors[ci][0];
+    this.backColor = colors[ci][1];
+    for (var i = 0; i < 4; i++) {
+      var dx = cos(this.angle + DEG_TO_RAD * (i * 90 + 45));
+      var dy = sin(this.angle + DEG_TO_RAD * (i * 90 + 45));
+      this.corners[i] = new Vector2(dx, dy);
+    }
+    this.Update = function(_dt) {
+      this.time += _dt;
+      this.rotation += this.rotationSpeed * _dt;
+      this.cosA = cos(DEG_TO_RAD * this.rotation);
+      this.pos.x += cos(this.time * this.oscillationSpeed) * this.xSpeed * _dt
+      this.pos.y += this.ySpeed * _dt;
+      if (this.pos.y > ConfettiPaper.bounds.y) {
+        this.pos.x = random() * ConfettiPaper.bounds.x;
+        this.pos.y = 0;
+      }
+    }
+    this.Draw = function(_g) {
+      if (this.cosA > 0) {
+        _g.fillStyle = this.frontColor;
+      } else {
+        _g.fillStyle = this.backColor;
+      }
+      _g.beginPath();
+      _g.moveTo((this.pos.x + this.corners[0].x * this.size) * retina, (this.pos.y + this.corners[0].y * this.size * this.cosA) * retina);
+      for (var i = 1; i < 4; i++) {
+        _g.lineTo((this.pos.x + this.corners[i].x * this.size) * retina, (this.pos.y + this.corners[i].y * this.size * this.cosA) * retina);
+      }
+      _g.closePath();
+      _g.fill();
+    }
+  }
+  ConfettiPaper.bounds = new Vector2(0, 0);
+
+  function ConfettiRibbon(_x, _y, _count, _dist, _thickness, _angle, _mass, _drag) {
+    this.particleDist = _dist;
+    this.particleCount = _count;
+    this.particleMass = _mass;
+    this.particleDrag = _drag;
+    this.particles = new Array();
+    var ci = round(random() * (colors.length - 1));
+    this.frontColor = colors[ci][0];
+    this.backColor = colors[ci][1];
+    this.xOff = (cos(DEG_TO_RAD * _angle) * _thickness);
+    this.yOff = (sin(DEG_TO_RAD * _angle) * _thickness);
+    this.position = new Vector2(_x, _y);
+    this.prevPosition = new Vector2(_x, _y);
+    this.velocityInherit = (random() * 2 + 4);
+    this.time = random() * 100;
+    this.oscillationSpeed = (random() * 2 + 2);
+    this.oscillationDistance = (random() * 40 + 40);
+    this.ySpeed = (random() * 40 + 80);
+    for (var i = 0; i < this.particleCount; i++) {
+      this.particles[i] = new EulerMass(_x, _y - i * this.particleDist, this.particleMass, this.particleDrag);
+    }
+    this.Update = function(_dt) {
+      var i = 0;
+      this.time += _dt * this.oscillationSpeed;
+      this.position.y += this.ySpeed * _dt;
+      this.position.x += cos(this.time) * this.oscillationDistance * _dt;
+      this.particles[0].position = this.position;
+      var dX = this.prevPosition.x - this.position.x;
+      var dY = this.prevPosition.y - this.position.y;
+      var delta = sqrt(dX * dX + dY * dY);
+      this.prevPosition = new Vector2(this.position.x, this.position.y);
+      for (i = 1; i < this.particleCount; i++) {
+        var dirP = Vector2.Sub(this.particles[i - 1].position, this.particles[i].position);
+        dirP.Normalize();
+        dirP.Mul((delta / _dt) * this.velocityInherit);
+        this.particles[i].AddForce(dirP);
+      }
+      for (i = 1; i < this.particleCount; i++) {
+        this.particles[i].Integrate(_dt);
+      }
+      for (i = 1; i < this.particleCount; i++) {
+        var rp2 = new Vector2(this.particles[i].position.x, this.particles[i].position.y);
+        rp2.Sub(this.particles[i - 1].position);
+        rp2.Normalize();
+        rp2.Mul(this.particleDist);
+        rp2.Add(this.particles[i - 1].position);
+        this.particles[i].position = rp2;
+      }
+      if (this.position.y > ConfettiRibbon.bounds.y + this.particleDist * this.particleCount) {
+        this.Reset();
+      }
+    }
+    this.Reset = function() {
+      this.position.y = -random() * ConfettiRibbon.bounds.y;
+      this.position.x = random() * ConfettiRibbon.bounds.x;
+      this.prevPosition = new Vector2(this.position.x, this.position.y);
+      this.velocityInherit = random() * 2 + 4;
+      this.time = random() * 100;
+      this.oscillationSpeed = random() * 2.0 + 1.5;
+      this.oscillationDistance = (random() * 40 + 40);
+      this.ySpeed = random() * 40 + 80;
+      var ci = round(random() * (colors.length - 1));
+      this.frontColor = colors[ci][0];
+      this.backColor = colors[ci][1];
+      this.particles = new Array();
+      for (var i = 0; i < this.particleCount; i++) {
+        this.particles[i] = new EulerMass(this.position.x, this.position.y - i * this.particleDist, this.particleMass, this.particleDrag);
+      }
+    };
+    this.Draw = function(_g) {
+      for (var i = 0; i < this.particleCount - 1; i++) {
+        var p0 = new Vector2(this.particles[i].position.x + this.xOff, this.particles[i].position.y + this.yOff);
+        var p1 = new Vector2(this.particles[i + 1].position.x + this.xOff, this.particles[i + 1].position.y + this.yOff);
+        if (this.Side(this.particles[i].position.x, this.particles[i].position.y, this.particles[i + 1].position.x, this.particles[i + 1].position.y, p1.x, p1.y) < 0) {
+          _g.fillStyle = this.frontColor;
+          _g.strokeStyle = this.frontColor;
+        } else {
+          _g.fillStyle = this.backColor;
+          _g.strokeStyle = this.backColor;
+        }
+        if (i == 0) {
+          _g.beginPath();
+          _g.moveTo(this.particles[i].position.x * retina, this.particles[i].position.y * retina);
+          _g.lineTo(this.particles[i + 1].position.x * retina, this.particles[i + 1].position.y * retina);
+          _g.lineTo(((this.particles[i + 1].position.x + p1.x) * 0.5) * retina, ((this.particles[i + 1].position.y + p1.y) * 0.5) * retina);
+          _g.closePath();
+          _g.stroke();
+          _g.fill();
+          _g.beginPath();
+          _g.moveTo(p1.x * retina, p1.y * retina);
+          _g.lineTo(p0.x * retina, p0.y * retina);
+          _g.lineTo(((this.particles[i + 1].position.x + p1.x) * 0.5) * retina, ((this.particles[i + 1].position.y + p1.y) * 0.5) * retina);
+          _g.closePath();
+          _g.stroke();
+          _g.fill();
+        } else if (i == this.particleCount - 2) {
+          _g.beginPath();
+          _g.moveTo(this.particles[i].position.x * retina, this.particles[i].position.y * retina);
+          _g.lineTo(this.particles[i + 1].position.x * retina, this.particles[i + 1].position.y * retina);
+          _g.lineTo(((this.particles[i].position.x + p0.x) * 0.5) * retina, ((this.particles[i].position.y + p0.y) * 0.5) * retina);
+          _g.closePath();
+          _g.stroke();
+          _g.fill();
+          _g.beginPath();
+          _g.moveTo(p1.x * retina, p1.y * retina);
+          _g.lineTo(p0.x * retina, p0.y * retina);
+          _g.lineTo(((this.particles[i].position.x + p0.x) * 0.5) * retina, ((this.particles[i].position.y + p0.y) * 0.5) * retina);
+          _g.closePath();
+          _g.stroke();
+          _g.fill();
+        } else {
+          _g.beginPath();
+          _g.moveTo(this.particles[i].position.x * retina, this.particles[i].position.y * retina);
+          _g.lineTo(this.particles[i + 1].position.x * retina, this.particles[i + 1].position.y * retina);
+          _g.lineTo(p1.x * retina, p1.y * retina);
+          _g.lineTo(p0.x * retina, p0.y * retina);
+          _g.closePath();
+          _g.stroke();
+          _g.fill();
+        }
+      }
+    }
+    this.Side = function(x1, y1, x2, y2, x3, y3) {
+      return ((x1 - x2) * (y3 - y2) - (y1 - y2) * (x3 - x2));
+    }
+  }
+  ConfettiRibbon.bounds = new Vector2(0, 0);
+  confetti = {};
+  confetti.Context = function(id) {
+    var i = 0;
+    var canvas = document.getElementById(id);
+    var canvasParent = canvas.parentNode;
+    var canvasWidth = canvasParent.offsetWidth;
+    var canvasHeight = canvasParent.offsetHeight;
+    canvas.width = canvasWidth * retina;
+    canvas.height = canvasHeight * retina;
+    var context = canvas.getContext('2d');
+    var interval = null;
+    var confettiRibbons = new Array();
+    ConfettiRibbon.bounds = new Vector2(canvasWidth, canvasHeight);
+    for (i = 0; i < confettiRibbonCount; i++) {
+      confettiRibbons[i] = new ConfettiRibbon(random() * canvasWidth, -random() * canvasHeight * 2, ribbonPaperCount, ribbonPaperDist, ribbonPaperThick, 45, 1, 0.05);
+    }
+    var confettiPapers = new Array();
+    ConfettiPaper.bounds = new Vector2(canvasWidth, canvasHeight);
+    for (i = 0; i < confettiPaperCount; i++) {
+      confettiPapers[i] = new ConfettiPaper(random() * canvasWidth, random() * canvasHeight);
+    }
+    this.resize = function() {
+      canvasWidth = canvasParent.offsetWidth;
+      canvasHeight = canvasParent.offsetHeight;
+      canvas.width = canvasWidth * retina;
+      canvas.height = canvasHeight * retina;
+      ConfettiPaper.bounds = new Vector2(canvasWidth, canvasHeight);
+      ConfettiRibbon.bounds = new Vector2(canvasWidth, canvasHeight);
+    }
+    this.start = function() {
+      this.stop()
+      var context = this;
+      this.update();
+    }
+    this.stop = function() {
+      cAF(this.interval);
+    }
+    this.update = function() {
+      var i = 0;
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      for (i = 0; i < confettiPaperCount; i++) {
+        confettiPapers[i].Update(duration);
+        confettiPapers[i].Draw(context);
+      }
+      for (i = 0; i < confettiRibbonCount; i++) {
+        confettiRibbons[i].Update(duration);
+        confettiRibbons[i].Draw(context);
+      }
+      this.interval = rAF(function() {
+        confetti.update();
+      });
+    }
+  };
+  var confetti = new confetti.Context('confetti');
+  confetti.start();
+  window.addEventListener('resize', function(event){
+    confetti.resize();
+  });
+});
+  </script>
